@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Order = require("./Order");
+// const Order = require("./Order");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
@@ -45,7 +45,7 @@ let UserSchema = new Schema({
     type: String,
     //Lead, Opportunity, Contact, Account
   },
-  // Order: [
+  // Orders: [
   //   {
   //     type: Schema.Types.OrderId,
   //     ref: "Order",
