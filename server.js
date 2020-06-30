@@ -28,11 +28,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const userRouter = require("./routes/User");
+const userRouter = require("./routes/userRoutes");
 app.use("/", userRouter);
 
-const postsRoutes = require("./routes/postsRoutes");
-app.use("/api", postsRoutes);
+// const apiRouter = require("./routes/apiRoutes");
+// app.use("/api", apiRouter);
 
 app.listen(PORT, () => {
   console.log(`listening at http://localhost:${PORT}`);
