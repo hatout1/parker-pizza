@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+
+const Order = require("./Order");
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
-const Order = require("./Orders");
 
 let UserSchema = new Schema({
   role: {
@@ -43,12 +45,12 @@ let UserSchema = new Schema({
     type: String,
     //Lead, Opportunity, Contact, Account
   },
-  Orders: [
-    {
-      type: Schema.Types.OrderId,
-      ref: "Order",
-    },
-  ],
+  // Order: [
+  //   {
+  //     type: Schema.Types.OrderId,
+  //     ref: "Order",
+  //   },
+  // ],
 });
 
 UserSchema.pre("save", function (next) {
