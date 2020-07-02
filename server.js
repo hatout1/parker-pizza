@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5100;
 app.use(cookieParser());
 app.use(express.json());
 
@@ -31,8 +31,8 @@ if (process.env.NODE_ENV === "production") {
 const userRouter = require("./routes/userRoutes");
 app.use("/", userRouter);
 
-// const apiRouter = require("./routes/apiRoutes");
-// app.use("/api", apiRouter);
+const apiRouter = require("./routes/apiRoutes");
+app.use("/api", apiRouter);
 
 app.listen(PORT, () => {
   console.log(`listening at http://localhost:${PORT}`);

@@ -17,8 +17,10 @@ const signToken = (userID) => {
 };
 
 userRouter.post("/register", (req, res) => {
+  console.log("/register was hit");
   const { username, password, email } = req.body;
   User.findOne({ username }, (err, user) => {
+    console.log("I'm here");
     if (err)
       res
         .status(500)
