@@ -22,7 +22,7 @@ let UserSchema = new Schema({
     type: String,
     //personal, company
   },
-  userNmae: {
+  username: {
     type: String,
   },
   email: {
@@ -37,6 +37,15 @@ let UserSchema = new Schema({
   },
   address: {
     type: String,
+  },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  zipcode: {
+    type: Number,
   },
   phoneNumber: {
     type: String,

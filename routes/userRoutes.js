@@ -17,10 +17,23 @@ const signToken = (userID) => {
 };
 
 userRouter.post("/register", (req, res) => {
-  console.log("/register was hit");
-  const { username, password, email } = req.body;
+  const {
+    username,
+    password,
+    email,
+    role,
+    firstName,
+    lastName,
+    companyName,
+    category,
+    address,
+    phoneNumber,
+    userRelation,
+    city,
+    state,
+    zipcode,
+  } = req.body;
   User.findOne({ username }, (err, user) => {
-    console.log("I'm here");
     if (err)
       res
         .status(500)
@@ -30,7 +43,22 @@ userRouter.post("/register", (req, res) => {
         .status(500)
         .json({ message: { msgBody: "User already exist", msgError: true } });
     else {
-      const newUser = new User({ username, password, email });
+      const newUser = new User({
+        username,
+        password,
+        email,
+        role,
+        firstName,
+        lastName,
+        companyName,
+        category,
+        address,
+        phoneNumber,
+        userRelation,
+        city,
+        state,
+        zipcode,
+      });
       newUser.save((err) => {
         if (err)
           res.status(500).json({
@@ -49,13 +77,17 @@ userRouter.post(
   "/login",
   passport.authenticate("local", { session: false }),
   (req, res) => {
+    console.log("line 50 login");
     if (req.isAuthenticated()) {
+      console.log("line 52 login");
+
       const { _id, username } = req.user;
       const token = signToken(_id);
       res.cookie("access_token", token, { httpOnly: true, sameSite: true });
       res.cookie("userID", _id, { httpOnly: true, sameSite: true });
       res.status(200).json({ isAuthenticated: true, user: { username, _id } });
     }
+    console.log("line 60 login");
   }
 );
 userRouter.get("/all", (req, res) => {

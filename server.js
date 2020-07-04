@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5100;
 app.use(cookieParser());
 app.use(express.json());
 
-const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost/parker-pizza";
+const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost/parkerPiz";
 
 mongoose.connect(
   MONGO_URI,
