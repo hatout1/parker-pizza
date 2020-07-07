@@ -4,6 +4,7 @@ const passport = require("passport");
 const passportConfig = require("../passport/passport");
 const JWT = require("jsonwebtoken");
 const User = require("../models/User");
+const { where } = require("../models/User");
 
 const signToken = (userID) => {
   return JWT.sign(
@@ -91,7 +92,7 @@ userRouter.post(
   }
 );
 userRouter.get("/all", (req, res) => {
-  User.find().then((results) => {
+  User.find({ username: req.params.username }).then((results) => {
     res.json(results);
   });
 });
