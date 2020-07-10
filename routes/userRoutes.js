@@ -92,8 +92,19 @@ userRouter.post(
   }
 );
 userRouter.get("/all", (req, res) => {
-  User.find({ username: req.params.username }).then((results) => {
+  const wanted = req.params.username;
+  console.log(wanted);
+  // User.findOne({ username: req.params.username }).then((results) => {
+  User.find().then((results) => {
     res.json(results);
+    console.log(results);
+  });
+});
+userRouter.get("/all/:id", (req, res) => {
+  console.log(req.params.id);
+  User.findOne({ username: req.params.id }).then((results) => {
+    res.json(results);
+    console.log(results);
   });
 });
 
