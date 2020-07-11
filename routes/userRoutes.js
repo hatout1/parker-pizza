@@ -102,10 +102,13 @@ userRouter.get("/all", (req, res) => {
 });
 userRouter.get("/all/:id", (req, res) => {
   console.log(req.params.id);
-  User.findOne({ username: req.params.id }).then((results) => {
-    res.json(results);
-    console.log(results);
-  });
+  if (req.params.id || req.params.id !== undefined) {
+    User.findOne({ username: req.params.id }).then((results) => {
+      res.json(results);
+      console.log(results);
+    });
+  }
+  console.log("undefined undefined undefined undefined undefined ");
 });
 
 userRouter.get(
