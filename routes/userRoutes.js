@@ -48,7 +48,7 @@ userRouter.post("/register", (req, res) => {
         username,
         password,
         email,
-        role,
+        role: "Lead",
         firstName,
         lastName,
         companyName,
@@ -107,8 +107,9 @@ userRouter.get("/all/:id", (req, res) => {
       res.json(results);
       console.log(results);
     });
+  } else {
+    return { username: "No Matching Data" };
   }
-  console.log("undefined undefined undefined undefined undefined ");
 });
 
 userRouter.get(
