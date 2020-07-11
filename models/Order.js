@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const User = require("./User");
 
 let OrderSchema = new Schema({
   Date: {
@@ -27,6 +28,12 @@ let OrderSchema = new Schema({
   paid: {
     type: Boolean,
   },
+  ordredBy: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 module.exports = ("Order", OrderSchema);
