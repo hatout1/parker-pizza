@@ -94,7 +94,7 @@ userRouter.get("/all", (req, res) => {
   console.log(wanted);
   User.find().then((results) => {
     res.json(results);
-    console.log(results);
+    console.log("/all" + results);
   });
 });
 userRouter.get("/all/:id", (req, res) => {
