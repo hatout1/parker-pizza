@@ -92,7 +92,6 @@ userRouter.post(
 userRouter.get("/all", (req, res) => {
   const wanted = req.params.username;
   console.log(wanted);
-  // User.findOne({ username: req.params.username }).then((results) => {
   User.find().then((results) => {
     res.json(results);
     console.log(results);
