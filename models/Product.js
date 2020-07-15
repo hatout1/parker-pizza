@@ -28,6 +28,17 @@ let productSchema = new Schema({
       type: String,
     },
   },
+  cost: {
+    familySize: {
+      type: String,
+    },
+    mediumSize: {
+      type: String,
+    },
+    smallSize: {
+      type: String,
+    },
+  },
   rating: {
     type: Number,
   },
