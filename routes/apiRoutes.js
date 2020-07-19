@@ -8,7 +8,12 @@ const Product = require("../models/Product");
 router.post("/admin/addProduct", (req, res) => {});
 
 // ******* Products paths *****
-router.get("/allProducts", (req, res) => {});
+router.get("/allProducts/:id", (req, res) => {
+  // const category = req.params.id
+  Product.find({ category: req.params.id }).then((products) => {
+    res.json(products);
+  });
+});
 
 router.get("/showInvoice", (req, res) => {});
 
@@ -19,9 +24,9 @@ router.post("/submitOrder", (req, res) => {});
 router.post("/ProductsSetting", (req, res) => {
   const {
     productTitle,
-    category = "huhuh",
+    category = "pizza",
     description,
-    image = "jbjhb",
+    image = "",
     ingredient,
     familySizePrice,
     mediumSizePrice,
@@ -38,11 +43,9 @@ router.post("/ProductsSetting", (req, res) => {
         .status(500)
         .json({ message: { msgBody: "Error has occured", msgError: true } });
     if (product)
-      res
-        .status(500)
-        .json({
-          message: { msgBody: "Product already exists", msgError: true },
-        });
+      res.status(500).json({
+        message: { msgBody: "Product already exists", msgError: true },
+      });
     else {
       console.log("line 45");
       const newProduct = new Product({
