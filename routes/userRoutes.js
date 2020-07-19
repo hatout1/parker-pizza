@@ -76,33 +76,25 @@ userRouter.post(
   "/login",
   passport.authenticate("local", { session: false }),
   (req, res) => {
-    console.log("line 50 login");
     if (req.isAuthenticated()) {
-      console.log("line 52 login");
-
       const { _id, username } = req.user;
       const token = signToken(_id);
       res.cookie("access_token", token, { httpOnly: true, sameSite: true });
       res.cookie("userID", _id, { httpOnly: true, sameSite: true });
       res.status(200).json({ isAuthenticated: true, user: { username, _id } });
     }
-    console.log("line 60 login");
   }
 );
 userRouter.get("/all", (req, res) => {
   const wanted = req.params.username;
-  console.log(wanted);
   User.find().then((results) => {
     res.json(results);
-    console.log("/all" + results);
   });
 });
 userRouter.get("/all/:id", (req, res) => {
-  console.log(req.params.id);
   if (req.params.id || req.params.id !== undefined) {
     User.findOne({ username: req.params.id }).then((results) => {
       res.json(results);
-      console.log(results);
     });
   } else {
     return { username: "No Matching Data" };
