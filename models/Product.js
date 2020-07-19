@@ -15,7 +15,7 @@ let productSchema = new Schema({
     type: String,
   },
   ingredient: {
-    type: Array,
+    type: String,
   },
   familySizePrice: {
     type: String,
@@ -40,4 +40,6 @@ let productSchema = new Schema({
   },
 });
 
-module.exports = ("Product", productSchema);
+const Product = mongoose.model("Product", productSchema);
+
+module.exports = Product;

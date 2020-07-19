@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const Product = require("../models/Product");
+// const { where } = require("../models/Product");
 
 // ******* Admin paths ******
 router.post("/admin/addProduct", (req, res) => {});
@@ -17,10 +18,10 @@ router.post("/submitOrder", (req, res) => {});
 
 router.post("/ProductsSetting", (req, res) => {
   const {
-    name,
-    category,
+    productTitle,
+    category = "huhuh",
     description,
-    image,
+    image = "jbjhb",
     ingredient,
     familySizePrice,
     mediumSizePrice,
@@ -30,18 +31,22 @@ router.post("/ProductsSetting", (req, res) => {
     smallSizeCost,
   } = req.body;
   console.log(req.body);
+
   Product.findOne({ productTitle }, (err, product) => {
     if (err)
       res
         .status(500)
         .json({ message: { msgBody: "Error has occured", msgError: true } });
-    if (user)
-      res.status(500).json({
-        message: { msgBody: "Product already exists", msgError: true },
-      });
+    if (product)
+      res
+        .status(500)
+        .json({
+          message: { msgBody: "Product already exists", msgError: true },
+        });
     else {
+      console.log("line 45");
       const newProduct = new Product({
-        name,
+        productTitle,
         category,
         description,
         image,
