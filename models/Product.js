@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let productSchema = new Schema({
-  name: {
+  productTitle: {
     type: String,
   },
   category: {
@@ -17,27 +17,23 @@ let productSchema = new Schema({
   ingredient: {
     type: Array,
   },
-  price: {
-    familySize: {
-      type: String,
-    },
-    mediumSize: {
-      type: String,
-    },
-    smallSize: {
-      type: String,
-    },
+  familySizePrice: {
+    type: String,
   },
-  cost: {
-    familySize: {
-      type: String,
-    },
-    mediumSize: {
-      type: String,
-    },
-    smallSize: {
-      type: String,
-    },
+  mediumSizePrice: {
+    type: String,
+  },
+  smallSizePrice: {
+    type: String,
+  },
+  familySizeCost: {
+    type: String,
+  },
+  mediumSizeCost: {
+    type: String,
+  },
+  smallSizeCost: {
+    type: String,
   },
   rating: {
     type: Number,
