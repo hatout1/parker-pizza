@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 const Product = require("../models/Product");
+const Order = require("../models/Order");
+const Invoice = require("../models/Invoice");
+const { update } = require("../models/Product");
 // const { where } = require("../models/Product");
 
 // ******* Admin paths ******
@@ -15,11 +18,25 @@ router.get("/allProducts/:id", (req, res) => {
   });
 });
 
-router.get("/showInvoice", (req, res) => {});
+router.get("/showInvoice", (req, res) => {
+  Invoice.find({ client: "user" }).then((invoice) => {
+    res.json(invoice);
+  });
+});
 
-router.post("/updateInvoice", (req, res) => {});
+// update Invoice for payment
+router.put("/updateInvoice", (req, res) => {
+  const id = req.body._id;
+  Invoice.findOneAndUpdate({ _id: id }, update, { paid: true }).then(
+    (invoice) => {
+      res.json(invoice);
+    }
+  );
+});
 
-router.post("/submitOrder", (req, res) => {});
+router.post("/submitOrder", (req, res) => {
+  Order.create();
+});
 
 router.post("/ProductsSetting", (req, res) => {
   const {

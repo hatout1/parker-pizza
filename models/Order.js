@@ -43,6 +43,9 @@ let OrderSchema = new Schema({
       ref: "Invoice",
     },
   ],
+  includedOnInvoice: {
+    type: Boolean,
+  },
 });
 
 module.exports = ("Order", OrderSchema);
