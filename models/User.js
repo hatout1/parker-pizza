@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 let UserSchema = new Schema({
   role: {
     type: String,
-    //Admin, Manager, Customer, None
+    enum: ["Admin", "Manager", "Customer"],
   },
   firstName: {
     type: String,
