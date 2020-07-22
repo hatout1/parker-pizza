@@ -77,11 +77,12 @@ userRouter.post(
   passport.authenticate("local", { session: false }),
   (req, res) => {
     if (req.isAuthenticated()) {
-      const { _id, username } = req.user;
+      const { _id, username, role } = req.user;
       const token = signToken(_id);
       res.cookie("access_token", token, { httpOnly: true, sameSite: true });
-      res.cookie("userID", _id, { httpOnly: true, sameSite: true });
-      res.status(200).json({ isAuthenticated: true, user: { username, _id } });
+      res
+        .status(200)
+        .json({ isAuthenticated: true, user: { username, _id, role } });
     }
   }
 );
@@ -106,8 +107,27 @@ userRouter.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.clearCookie("access_token");
-    res.clearCookie("userID");
+    // res.clearCookie("userID");
     res.json({ user: { username: "", role: "" }, success: true });
+  }
+);
+
+userRouter.get(
+  "/admin",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    if (req.user.role === "admin") {
+      res
+        .status(200)
+        .json({ message: { msgBody: "You are an admin", msgError: false } });
+    } else
+      res.status(403).json({
+        message: {
+          msgBody:
+            "Sorry! you're access level is not allowing you to get this information!",
+          msgError: true,
+        },
+      });
   }
 );
 
@@ -115,10 +135,8 @@ userRouter.get(
   "/authenticated",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { username } = req.user;
-    res
-      .status(200)
-      .json({ isAuthenticated: true, user: { username, role, _id } });
+    const { username, role } = req.user;
+    res.status(200).json({ isAuthenticated: true, user: { username, role } });
   }
 );
 
