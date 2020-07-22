@@ -46,7 +46,7 @@ userRouter.post("/register", (req, res) => {
         username,
         password,
         email,
-        role: "Customer",
+        role: "Admin",
         firstName,
         lastName,
         companyName,
@@ -116,10 +116,10 @@ userRouter.get(
   "/admin",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    if (req.user.role === "admin") {
-      res
-        .status(200)
-        .json({ message: { msgBody: "You are an admin", msgError: false } });
+    if (req.user.role === "Admin" || "Manager") {
+      res.status(200).json({
+        message: { msgBody: "You have access to this data", msgError: false },
+      });
     } else
       res.status(403).json({
         message: {
