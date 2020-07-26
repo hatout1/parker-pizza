@@ -1,11 +1,39 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const Product = require("../models/Product");
 const Order = require("../models/Order");
 const Invoice = require("../models/Invoice");
 const { update } = require("../models/Product");
 // const { where } = require("../models/Product");
+
+//**** Multer ******/
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter: fileFilter,
+});
+const Product = require("../models/Product");
 
 // ******* Admin paths ******
 router.post("/admin/addProduct", (req, res) => {});
@@ -14,6 +42,13 @@ router.post("/admin/addProduct", (req, res) => {});
 router.get("/allProducts/:id", (req, res) => {
   // const category = req.params.id
   Product.find({ category: req.params.id }).then((products) => {
+    res.json(products);
+  });
+});
+
+router.get("/Products", (req, res) => {
+  // const category = req.params.id
+  Product.find().then((products) => {
     res.json(products);
   });
 });
@@ -38,12 +73,11 @@ router.post("/submitOrder", (req, res) => {
   Order.create();
 });
 
-router.post("/ProductsSetting", (req, res) => {
+router.post("/ProductsSetting", upload.single("image"), (req, res) => {
   const {
     productTitle,
-    category = "pizza",
+    category,
     description,
-    image = "",
     ingredient,
     familySizePrice,
     mediumSizePrice,
@@ -52,6 +86,7 @@ router.post("/ProductsSetting", (req, res) => {
     mediumSizeCost,
     smallSizeCost,
   } = req.body;
+  const { image } = req.body;
   console.log(req.body);
 
   Product.findOne({ productTitle }, (err, product) => {

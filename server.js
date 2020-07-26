@@ -3,10 +3,13 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 5100;
+
 app.use(cookieParser());
 app.use(express.json());
 
 const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost/parkerPizzaX";
+
+// app.set("view engine", "ejs");
 
 mongoose.connect(
   MONGO_URI,
@@ -27,6 +30,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+app.use("/uploads", express.static("uploads"));
 
 const userRouter = require("./routes/userRoutes");
 app.use("/", userRouter);
