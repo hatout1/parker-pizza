@@ -86,8 +86,8 @@ router.post("/ProductsSetting", upload.single("image"), (req, res) => {
     mediumSizeCost,
     smallSizeCost,
   } = req.body;
-  const { image } = req.body;
-  console.log(req.body);
+  const image = req.file.path;
+  console.log(req.file.path);
 
   Product.findOne({ productTitle }, (err, product) => {
     if (err)

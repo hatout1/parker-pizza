@@ -14,6 +14,9 @@ let productSchema = new Schema({
   productImage: {
     type: String,
   },
+  image: {
+    type: String,
+  },
   ingredient: {
     type: String,
   },
