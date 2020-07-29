@@ -73,7 +73,11 @@ router.post("/submitOrder", (req, res) => {
   Order.create();
 });
 
-router.post("/ProductsSetting", upload.single("image"), (req, res) => {
+router.post("/ProductsSetting", upload.single("file"), async function (
+  req,
+  res,
+  next
+) {
   const {
     productTitle,
     category,
@@ -86,8 +90,8 @@ router.post("/ProductsSetting", upload.single("image"), (req, res) => {
     mediumSizeCost,
     smallSizeCost,
   } = req.body;
-  const image = req.file.path;
-  console.log(req.file.path);
+  const file = req.file.path;
+  console.log(req);
 
   Product.findOne({ productTitle }, (err, product) => {
     if (err)
@@ -104,7 +108,7 @@ router.post("/ProductsSetting", upload.single("image"), (req, res) => {
         productTitle,
         category,
         description,
-        image,
+        image: file,
         ingredient,
         familySizePrice,
         mediumSizePrice,
