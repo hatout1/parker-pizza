@@ -7,11 +7,9 @@ let productSchema = new Schema({
   },
   category: {
     type: String,
+    enum: ["pizza", "breadStick", "sauce"],
   },
   description: {
-    type: String,
-  },
-  productImage: {
     type: String,
   },
   image: {

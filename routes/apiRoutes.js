@@ -73,6 +73,12 @@ router.post("/submitOrder", (req, res) => {
   Order.create();
 });
 
+router.delete("/deleteAll", (req, res) => {
+  Product.deleteMany({}).then((result) => {
+    res.json("products deleted");
+  });
+});
+
 router.post("/ProductsSetting", upload.single("file"), async function (
   req,
   res,
@@ -91,7 +97,6 @@ router.post("/ProductsSetting", upload.single("file"), async function (
     smallSizeCost,
   } = req.body;
   const file = req.file.path;
-  console.log(req);
 
   Product.findOne({ productTitle }, (err, product) => {
     if (err)
