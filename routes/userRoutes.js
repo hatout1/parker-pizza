@@ -46,7 +46,7 @@ userRouter.post("/register", (req, res) => {
         username,
         password,
         email,
-        role: "Admin",
+        role: "Customer",
         firstName,
         lastName,
         companyName,

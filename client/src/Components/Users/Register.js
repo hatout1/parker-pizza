@@ -161,15 +161,22 @@ const Register = (props) => {
                 placeholder="Phone number"
               />
             </div>
+
             <div className="inputRow">
-              <input
+              <select
                 type="text"
                 name="category"
                 value={user.category}
                 onChange={onChange}
                 className="input"
                 placeholder="Account Type"
-              />
+              >
+                <option selected value="">
+                  Select Account Type
+                </option>
+                <option value="personal">Personal</option>
+                <option value="business">Business</option>
+              </select>
             </div>
             <div className="signupBtn">
               <button
